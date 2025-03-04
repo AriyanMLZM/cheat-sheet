@@ -49,6 +49,32 @@ mixed array type.
 `let a: [number, string]`  
 Tuple type.
 
+`enum var {a, b, c}`  
+declare enum.  
+var.a --> 0  
+`enum var {a = 2, b}`  
+set the index manually.  
+var.b --> 3
+
+`let a: "ali"`  
+literal types.
+
+`<T1 extends T2>`  
+combined types.
+
+`type a = Exclude<unionType, type>`  
+exclude the type from union that can not be used.  
+`type a = Extract<unionType, type>`  
+use only the extracted type from union.
+
+`type a = NonNullable<type>`  
+exclude the null and undefined from the type.
+
+`let a: object`  
+`let a: RegExp = /\w+\g`
+
+## objects
+
 `let a: {prop1: number; prop2: string}`  
 json object type.
 
@@ -73,21 +99,19 @@ use Record to set the type of object.
 `a as keyof interfaceName`  
 set the type as the keys of an object.
 
-`enum var {a, b, c}`  
-declare enum.  
-var.a --> 0  
-`enum var {a = 2, b}`  
-set the index manually.  
-var.b --> 3
+`let a: Partial<interfaceName>`  
+Partial type to be a sub type of another type.
 
-`let a: "ali"`  
-literal types.
+`let a: Required<interfaceName>`  
+all the props are required from interface even the optionals.
 
-`<T1 extends T2>`  
-we should obey the both types.
+`let a: Readonly<interfaceName>`  
+can not be reassigned later.
 
-`let a: object`  
-`let a: RegExp = /\w+\g`
+`let a: Pick<interfaceName, type>`  
+pick the type from interface and use that.  
+`let a: Omit<interfaceName, type>`  
+omit the type from interface that can not ber used.
 
 ## functions
 
@@ -102,6 +126,15 @@ the rest params type.
 
 `const func = <T>(a: T): boolean => {}`  
 we can use generic type that can be anything.
+
+`type a = ReturnType<typeof funcName>`  
+grt the return type of func automatically.
+
+`type a = Parameters<typeof funcName>`  
+get the parameters type of func automatically.
+
+`type a = Awaited<ReturnType<typeof funcName>>`  
+Awaited used to get the return type of async func.
 
 ## Type Assertion or Type Casting
 
