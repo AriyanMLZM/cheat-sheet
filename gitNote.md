@@ -78,12 +78,23 @@ push specific commit to remote.
 `git reset --hard commitHash`  
 move to a past commit and ignore the fallowing commits. hard reset will delete the rest of commits.
 
+## stash
+`git stash -m "msg"`  
+save changes without commit.
+
+`git stash pop`  
+pop the last stash and apply.
+
+`git stash apply stashName`  
+apply a stash from stash list.
+
+`git stash list`  
+see all stashes.
+
 ## extra commands
 
 `git revert commitHash`  
 works like reset but can keep the commits.
-
-`git stash`
 
 `git rebase HEAD~2 --exec "git commit --amend --no-edit --date 'now'"`  
 change the date of commits with rebase.
