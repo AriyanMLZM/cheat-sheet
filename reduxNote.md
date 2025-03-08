@@ -98,7 +98,42 @@ we use the selector to access the states value.
 `useDispatch(actionName())`  
 we use the dispatch to run a slice action.
 
+## Setup Async Thunk
+
+```
+export const fetchPosts = createAsyncThunk('sliceName/thunkName', async () => {
+  const response = await axios.get(URL)
+  return response.data
+})
+```
+
+we use the thunk for implementing async operations like fetching data.
+
+```
+createSlice({
+  extraReducers(builder) {
+    builder
+      .addCase(thunkName.pending, (state, action) => {
+        state.status = 'loading'
+      })
+  }
+})
+```
+
+we use the thunk in slice config.
+we can declare a status prop.
+cases of async thunk function:
+
+- pending
+- fulfilled
+- rejected
+
 ## Types
 
 `export type RootStore = ReturnType<typeof store.getSate>`  
 get the type of root state of store.
+
+`export type AppDispatch = typeof store.dispatch`  
+get the dispatch type of store.  
+`useDispatch<AppDispatch>()`  
+use the AppDispatch type.
