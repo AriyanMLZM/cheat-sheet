@@ -162,3 +162,11 @@ set an interface to a class.
 
 `static a: number = 0`  
 static vars refers directly to class and not the objects.
+
+## React
+
+`useSate<string>('Hello')`  
+set the type of state.
+
+`useRef<HtmlInputElement>(null)`  
+set the type of ref.

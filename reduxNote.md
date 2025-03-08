@@ -1,0 +1,104 @@
+`npm i @reduxjs/toolkit react-redux`
+
+## Setup Store
+
+`src/store/store.js`
+
+```
+import { configureStore } from "@reduxjs/toolkit";
+import sliceReducer from './slices/counterSlice';
+
+export const store = configureStore({
+  reducer: {
+    counter: sliceReducer,
+  }
+})
+```
+
+set the reducer the slices reducers that we create for each feature.
+
+## Setup Provider
+
+```
+import { Provider } from 'react-redux';
+import { store } from './store/store.js';
+
+<Provider store={store}>
+  <App />
+</Provider>
+```
+
+wrap the app with provider of redux.
+
+## Setup Slice
+
+`./slices/sliceName.js`
+
+```
+import { createSlice } from "@reduxjs/toolkit";
+
+const initialState = {
+  prop: 0
+}
+
+export const nameSlice = createSlice({
+  name: 'sliceName',
+  initialState,
+  reducers: {
+    actionName: (state) => {
+      state.prop += 1;
+    },
+    actionName2: (state) => {
+      state.prop -= 1;
+    },
+    actionName3: (state, action) => {
+      state.prop += action.payload;
+    }
+  }
+});
+
+export const { actionName, actionName2, actionName3 } = nameSlice.actions;
+
+export default nameSlice.reducer;
+```
+
+declare the reducer actions.  
+export the actions.  
+export the reducer that will be used in store.js.
+
+```
+reducers: {
+  actionName: {
+    reducer(state, action) {
+      state.push(action.payload)
+    },
+    prepare(prop1, prop2, prop3) {
+      return {
+        payload: {
+          prop1,
+          prop2,
+          prop3
+        }
+      }
+    }
+  },
+}
+```
+
+we can customize the payload with prepare and send it to the reducer.
+
+## Usage
+
+`import { useDispatch, useSelector } from 'react-redux`
+
+`const count = useSelector((state: RootStateType) => state.sliceNam.prop)`  
+we use the selector to access the states value.
+
+`import { actionName } from './slices/sliceName.js'`  
+`useDispatch(actionName())`  
+we use the dispatch to run a slice action.
+
+## Types
+
+`export type RootStore = ReturnType<typeof store.getSate>`  
+get the type of root state of store.
