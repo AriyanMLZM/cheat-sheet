@@ -177,6 +177,105 @@ export const {
 } = dataAdapter.getSelectors(state => state.sliceName)
 ```
 
+## RTK Query
+
+`import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'`
+
+### Setup Api Slice
+
+```
+export const apiSlice = createApi({
+  reducerPath: 'api',
+  baseQuery: fetchBaseQuery({ baseUrl: 'http://baseUrl' }),
+  tagTypes: ['TagName'],
+  endpoints: (builder) => ({})
+})
+```
+
+we can set a base url that can be used in endpoints.  
+we use the tags to control the rerenders.
+
+### Setup Endpoints (Cruds)
+
+```
+endpoints: (builder) => ({
+  getDatas: builder.query({
+    query: () => '/datas',
+    transformResponse: res => res.sort((a, b) => b.id - a.id),
+      providesTags: ['TagName']
+    }),
+  addData: builder.mutation({
+    query: (data) => ({
+      url: '/add',
+      method: 'POST',
+      body: data
+    }),
+    invalidatesTags: ['TagName']
+  }),
+  updateData: builder.mutation({
+    query: (data) => ({
+      url: `/update/${data.id}`,
+      method: 'PATCH',
+      body: todo
+    }),
+    invalidatesTags: ['TagName']
+  }),
+  deleteData: builder.mutation({
+    query: ({ id }) => ({
+      url: `/delete/${id}`,
+      method: 'DELETE',
+      body: id
+    }),
+    invalidatesTags: ['TagName']
+  }),
+})
+```
+
+we set the path and the method for each req.  
+we use the tags to rerender the page when it is needed.  
+we can alter the res.
+
+### Generate the Crud Hooks
+
+```
+export const {
+    useGetDatasQuery,
+    useAddDataMutation,
+    useUpdateDataMutation,
+    useDeleteDataMutation
+} = apiSlice
+```
+
+we can use these hooks in our app to send queries.
+
+```
+const {
+  data,
+  isLoading,
+  isSuccess,
+  isError,
+  error
+} = useGetDatasQuery()
+```
+
+we can also use useful props of get query hook.
+
+`const [addData] = useAddDataMutation()`  
+`addTodo(data)`  
+use of mutation queries hooks.
+
+### Setup Provider
+
+`import { ApiProvider } from "@reduxjs/toolkit/query/react";`
+
+```
+<ApiProvider api={apiSlice}>
+  <App />
+</ApiProvider>
+```
+
+wrap our app with the provider and set the apiSlice that we created.
+
 ## Types
 
 `export type RootStore = ReturnType<typeof store.getSate>`  
