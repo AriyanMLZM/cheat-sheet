@@ -136,11 +136,13 @@ we use this to make working with data based state more easy and optimized way an
 
 ```
 const dataAdapter = createEntityAdapter({
-  sortComparer: (a, b) => b.date.localeCompare(a.date)
+  sortComparer: (a, b) => b.date.localeCompare(a.date),
+  selectId: (record: RecordType) => record.id
 })
 ```
 
-we can declare the adaptor with a sorter to sort the data automatically.
+we can declare the adaptor with a sorter to sort the data automatically.  
+we can set the record type and declare the id prop that used in methods.
 
 ```
 const initialState = dataAdapter.getInitialState({
@@ -151,7 +153,7 @@ const initialState = dataAdapter.getInitialState({
 
 set the initial state with adaptor and use it in slice.
 
-### Adaptor Methods
+### Adaptor Methods (Cruds)
 
 `dataAdapter.upsertMany(state, datas)`  
 add multi records of data.
