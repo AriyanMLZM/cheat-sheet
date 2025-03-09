@@ -235,6 +235,9 @@ we set the path and the method for each req.
 we use the tags to rerender the page when it is needed.  
 we can alter the res.
 
+`export const extendedApiSlice = apiSlice.injectEndpoints({endpoints: builder => ({})})`  
+we can also inject the endpoints outside of the creator.
+
 ### Generate the Crud Hooks
 
 ```
@@ -260,7 +263,7 @@ const {
 
 we can also use useful props of get query hook.
 
-`const [addData] = useAddDataMutation()`  
+`const [addData, { isLoading }] = useAddDataMutation()`  
 `addTodo(data)`  
 use of mutation queries hooks.
 
