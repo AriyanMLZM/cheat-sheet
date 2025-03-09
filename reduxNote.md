@@ -128,6 +128,53 @@ cases of async thunk function:
 - fulfilled
 - rejected
 
+## Entity Adapter
+
+we use this to make working with data based state more easy and optimized way and create auto selectors.
+
+`import { createEntityAdapter } from '@reduxjs/toolkit'`
+
+```
+const dataAdapter = createEntityAdapter({
+  sortComparer: (a, b) => b.date.localeCompare(a.date)
+})
+```
+
+we can declare the adaptor with a sorter to sort the data automatically.
+
+```
+const initialState = dataAdapter.getInitialState({
+  prop1: 1,
+  prop2: 2
+})
+```
+
+set the initial state with adaptor and use it in slice.
+
+### Adaptor Methods
+
+`dataAdapter.upsertMany(state, datas)`  
+add multi records of data.
+
+`dataAdapter.addOne(state, data)`  
+add one record of data.
+
+`dataAdapter.upsertOne(state, updatedData)`  
+update one record automatically.
+
+`dataAdapter.removeOne(state, id)`  
+remove one record with id.
+
+### Auto Generated Selectors
+
+```
+export const {
+  selectAll,
+  selectById,
+  selectIds
+} = dataAdapter.getSelectors(state => state.sliceName)
+```
+
 ## Types
 
 `export type RootStore = ReturnType<typeof store.getSate>`  
