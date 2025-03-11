@@ -25,6 +25,19 @@ make links to navigate in different routs of app.
 - loading.tsx  
   make a costume suspense based loading for each page.
 
+## Metadata
+
+`import type { Metadata } from 'next`
+
+```
+export const metadata: Metadata = {
+  title: "doc title",
+  description: "this is my Web."
+}
+```
+
+we can export our costumed metadata in each page of our app.
+
 ## Styling
 
 `app/globals.css`  
