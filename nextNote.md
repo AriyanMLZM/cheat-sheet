@@ -14,6 +14,13 @@ route of '/about'
 `<Link href="/about">About</Link>`  
 make links to navigate in different routs of app.
 
+### Dynamic Route
+
+`app/path/[id]/page.tsx`  
+create a slug that serves as dynamic route.  
+`Page({ params: { id } })`  
+we can get the params as prop in page comp.
+
 ## Special Files
 
 - page.tsx  
@@ -38,6 +45,22 @@ export const metadata: Metadata = {
 
 we can export our costumed metadata in each page of our app.
 
+### Dynamic Metadata
+
+```
+export async function generateMetaData({ params, searchParams}) {
+  const { id } = params
+  const data = await getData(id)
+
+  return {
+    title: data.title
+  }
+}
+```
+
+we can generate the metadata based on the params.  
+the generator gets the params as input and return a metadata object.
+
 ## Styling
 
 `app/globals.css`  
@@ -48,3 +71,8 @@ use a global css file for whole app and import it in root layout.tsx.
 make individual css files for components that will be only applied to that comp.  
 `import styles from './page.module.css`  
 `<div className={styles.className} />`
+
+## Types
+
+`types.d.ts`  
+we can declare our types that are used in our app in .d.ts files and will be used automatically without exporting.
