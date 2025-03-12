@@ -14,6 +14,11 @@ route of '/about'
 `<Link href="/about">About</Link>`  
 make links to navigate in different routs of app.
 
+`import { useRouter } from "next/navigation"`  
+`const router = useRouter()`  
+`router.push('/path')`  
+change the current route.
+
 `import { notFound } from 'next/navigation`  
 `notFound()`  
 this will make a 404 error and shows the default not found page or the not-found.tsx file.
