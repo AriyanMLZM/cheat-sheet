@@ -1,4 +1,4 @@
-## start git
+# Git
 
 `git config --global user.name 'myName'`  
 `git config --global user.email 'my@email'`  
@@ -79,6 +79,7 @@ push specific commit to remote.
 move to a past commit and ignore the fallowing commits. hard reset will delete the rest of commits.
 
 ## stash
+
 `git stash -m "msg"`  
 save changes without commit.
 

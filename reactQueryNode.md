@@ -9,10 +9,10 @@
 `const queryClient = new QueryClient()`  
 declare a queryClient.
 
-```
+```js
 <QueryClientProvider client={queryClient}>
-  <App />
-  <ReactQueryDevtools initialIsOpen />
+	<App />
+	<ReactQueryDevtools initialIsOpen />
 </QueryClientProvider>
 ```
 
@@ -29,15 +29,14 @@ get the query client.
 
 ### useQuery
 
-```
-const {
-  isLoading,
-  isError,
-  error,
-  data
-} = useQuery('tagNameCache', getDataFunc, {
-    select: data => data.sort((a, b) => b.id - a.id)
-})
+```js
+const { isLoading, isError, error, data } = useQuery(
+	'tagNameCache',
+	getDataFunc,
+	{
+		select: (data) => data.sort((a, b) => b.id - a.id),
+	}
+)
 ```
 
 used for get based query.  
@@ -47,11 +46,11 @@ select allow us to transform data when needed like sorting it.
 
 ### useMutation
 
-```
+```js
 const addDataMutation = useMutation(addDataFunc, {
-  onSuccess: () => {
-    queryClient.invalidateQueries("tagNameCache")
-  }
+	onSuccess: () => {
+		queryClient.invalidateQueries('tagNameCache')
+	},
 })
 
 addDataMutation.mutate(data)

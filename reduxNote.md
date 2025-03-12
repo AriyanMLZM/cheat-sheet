@@ -1,17 +1,19 @@
+# Redux
+
 `npm i @reduxjs/toolkit react-redux`
 
 ## Setup Store
 
 `src/store/store.js`
 
-```
-import { configureStore } from "@reduxjs/toolkit";
-import sliceReducer from './slices/counterSlice';
+```js
+import { configureStore } from '@reduxjs/toolkit'
+import sliceReducer from './slices/counterSlice'
 
 export const store = configureStore({
-  reducer: {
-    counter: sliceReducer,
-  }
+	reducer: {
+		counter: sliceReducer,
+	},
 })
 ```
 
@@ -19,12 +21,14 @@ set the reducer the slices reducers that we create for each feature.
 
 ## Setup Provider
 
+```js
+import { Provider } from 'react-redux'
+import { store } from './store/store.js'
 ```
-import { Provider } from 'react-redux';
-import { store } from './store/store.js';
 
+```js
 <Provider store={store}>
-  <App />
+	<App />
 </Provider>
 ```
 
@@ -34,39 +38,39 @@ wrap the app with provider of redux.
 
 `./slices/sliceName.js`
 
-```
-import { createSlice } from "@reduxjs/toolkit";
+```js
+import { createSlice } from '@reduxjs/toolkit'
 
 const initialState = {
-  prop: 0
+	prop: 0,
 }
 
 export const nameSlice = createSlice({
-  name: 'sliceName',
-  initialState,
-  reducers: {
-    actionName: (state) => {
-      state.prop += 1;
-    },
-    actionName2: (state) => {
-      state.prop -= 1;
-    },
-    actionName3: (state, action) => {
-      state.prop += action.payload;
-    }
-  }
-});
+	name: 'sliceName',
+	initialState,
+	reducers: {
+		actionName: (state) => {
+			state.prop += 1
+		},
+		actionName2: (state) => {
+			state.prop -= 1
+		},
+		actionName3: (state, action) => {
+			state.prop += action.payload
+		},
+	},
+})
 
-export const { actionName, actionName2, actionName3 } = nameSlice.actions;
+export const { actionName, actionName2, actionName3 } = nameSlice.actions
 
-export default nameSlice.reducer;
+export default nameSlice.reducer
 ```
 
 declare the reducer actions.  
 export the actions.  
 export the reducer that will be used in store.js.
 
-```
+```js
 reducers: {
   actionName: {
     reducer(state, action) {
@@ -100,23 +104,22 @@ we use the dispatch to run a slice action.
 
 ## Setup Async Thunk
 
-```
+```js
 export const fetchPosts = createAsyncThunk('sliceName/thunkName', async () => {
-  const response = await axios.get(URL)
-  return response.data
+	const response = await axios.get(URL)
+	return response.data
 })
 ```
 
 we use the thunk for implementing async operations like fetching data.
 
-```
+```js
 createSlice({
-  extraReducers(builder) {
-    builder
-      .addCase(thunkName.pending, (state, action) => {
-        state.status = 'loading'
-      })
-  }
+	extraReducers(builder) {
+		builder.addCase(thunkName.pending, (state, action) => {
+			state.status = 'loading'
+		})
+	},
 })
 ```
 
@@ -134,20 +137,20 @@ we use this to make working with data based state more easy and optimized way an
 
 `import { createEntityAdapter } from '@reduxjs/toolkit'`
 
-```
+```js
 const dataAdapter = createEntityAdapter({
-  sortComparer: (a, b) => b.date.localeCompare(a.date),
-  selectId: (record: RecordType) => record.id
+	sortComparer: (a, b) => b.date.localeCompare(a.date),
+	selectId: (record: RecordType) => record.id,
 })
 ```
 
 we can declare the adaptor with a sorter to sort the data automatically.  
 we can set the record type and declare the id prop that used in methods.
 
-```
+```js
 const initialState = dataAdapter.getInitialState({
-  prop1: 1,
-  prop2: 2
+	prop1: 1,
+	prop2: 2,
 })
 ```
 
@@ -169,12 +172,10 @@ remove one record with id.
 
 ### Auto Generated Selectors
 
-```
-export const {
-  selectAll,
-  selectById,
-  selectIds
-} = dataAdapter.getSelectors(state => state.sliceName)
+```js
+export const { selectAll, selectById, selectIds } = dataAdapter.getSelectors(
+	(state) => state.sliceName
+)
 ```
 
 ## RTK Query
@@ -183,12 +184,12 @@ export const {
 
 ### Setup Api Slice
 
-```
+```js
 export const apiSlice = createApi({
-  reducerPath: 'api',
-  baseQuery: fetchBaseQuery({ baseUrl: 'http://baseUrl' }),
-  tagTypes: ['TagName'],
-  endpoints: (builder) => ({})
+	reducerPath: 'api',
+	baseQuery: fetchBaseQuery({ baseUrl: 'http://baseUrl' }),
+	tagTypes: ['TagName'],
+	endpoints: (builder) => ({}),
 })
 ```
 
@@ -197,37 +198,37 @@ we use the tags to control the rerenders.
 
 ### Setup Endpoints (Cruds)
 
-```
+```js
 endpoints: (builder) => ({
-  getDatas: builder.query({
-    query: () => '/datas',
-    transformResponse: res => res.sort((a, b) => b.id - a.id),
-      providesTags: ['TagName']
-    }),
-  addData: builder.mutation({
-    query: (data) => ({
-      url: '/add',
-      method: 'POST',
-      body: data
-    }),
-    invalidatesTags: ['TagName']
-  }),
-  updateData: builder.mutation({
-    query: (data) => ({
-      url: `/update/${data.id}`,
-      method: 'PATCH',
-      body: todo
-    }),
-    invalidatesTags: ['TagName']
-  }),
-  deleteData: builder.mutation({
-    query: ({ id }) => ({
-      url: `/delete/${id}`,
-      method: 'DELETE',
-      body: id
-    }),
-    invalidatesTags: ['TagName']
-  }),
+	getDatas: builder.query({
+		query: () => '/datas',
+		transformResponse: (res) => res.sort((a, b) => b.id - a.id),
+		providesTags: ['TagName'],
+	}),
+	addData: builder.mutation({
+		query: (data) => ({
+			url: '/add',
+			method: 'POST',
+			body: data,
+		}),
+		invalidatesTags: ['TagName'],
+	}),
+	updateData: builder.mutation({
+		query: (data) => ({
+			url: `/update/${data.id}`,
+			method: 'PATCH',
+			body: todo,
+		}),
+		invalidatesTags: ['TagName'],
+	}),
+	deleteData: builder.mutation({
+		query: ({ id }) => ({
+			url: `/delete/${id}`,
+			method: 'DELETE',
+			body: id,
+		}),
+		invalidatesTags: ['TagName'],
+	}),
 })
 ```
 
@@ -240,25 +241,19 @@ we can also inject the endpoints outside of the creator.
 
 ### Generate the Crud Hooks
 
-```
+```js
 export const {
-    useGetDatasQuery,
-    useAddDataMutation,
-    useUpdateDataMutation,
-    useDeleteDataMutation
+	useGetDatasQuery,
+	useAddDataMutation,
+	useUpdateDataMutation,
+	useDeleteDataMutation,
 } = apiSlice
 ```
 
 we can use these hooks in our app to send queries.
 
-```
-const {
-  data,
-  isLoading,
-  isSuccess,
-  isError,
-  error
-} = useGetDatasQuery()
+```js
+const { data, isLoading, isSuccess, isError, error } = useGetDatasQuery()
 ```
 
 we can also use useful props of get query hook.
@@ -271,9 +266,9 @@ use of mutation queries hooks.
 
 `import { ApiProvider } from "@reduxjs/toolkit/query/react";`
 
-```
+```js
 <ApiProvider api={apiSlice}>
-  <App />
+	<App />
 </ApiProvider>
 ```
 

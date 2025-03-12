@@ -1,3 +1,5 @@
+# Next js
+
 `npx create-next-app`
 
 ## Routing
@@ -35,14 +37,14 @@ we can get the params as prop in page comp.
 `app/user/[userId]/page.tsx`  
 generate the static params for this slug.
 
-```
+```js
 export async function generateStaticParams() {
-    const usersData: Promise<User[]> = getAllUsers()
-    const users = await usersData
+	const usersData: Promise<User[]> = getAllUsers()
+	const users = await usersData
 
-    return users.map(user => ({
-        userId: user.id.toString()
-    }))
+	return users.map((user) => ({
+		userId: user.id.toString(),
+	}))
 }
 ```
 
@@ -74,10 +76,10 @@ static params for a dynamic route that change the SSR to SSG.
 
 `import type { Metadata } from 'next`
 
-```
+```js
 export const metadata: Metadata = {
-  title: "doc title",
-  description: "this is my Web."
+	title: 'doc title',
+	description: 'this is my Web.',
 }
 ```
 
@@ -85,14 +87,14 @@ we can export our costumed metadata in each page of our app.
 
 ### Dynamic Metadata
 
-```
-export async function generateMetaData({ params, searchParams}) {
-  const { id } = params
-  const data = await getData(id)
+```js
+export async function generateMetaData({ params, searchParams }) {
+	const { id } = params
+	const data = await getData(id)
 
-  return {
-    title: data.title
-  }
+	return {
+		title: data.title,
+	}
 }
 ```
 

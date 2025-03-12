@@ -1,13 +1,17 @@
+# Axios
+
+`npm i axios`
+
 ## Create Axios Instance
 
-```
+```js
 export default axios.create({
-  baseURL: 'BASE_URL',
-  headers: {
-    'Content-Type': 'application/json',
-    'Accept': 'application/json'
-  }
-});
+	baseURL: 'BASE_URL',
+	headers: {
+		'Content-Type': 'application/json',
+		Accept: 'application/json',
+	},
+})
 ```
 
 we can create an instance with config and use it for our requests in faster way.  
