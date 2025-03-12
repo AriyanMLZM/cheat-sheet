@@ -14,12 +14,43 @@ route of '/about'
 `<Link href="/about">About</Link>`  
 make links to navigate in different routs of app.
 
+`import { notFound } from 'next/navigation`  
+`notFound()`  
+this will make a 404 error and shows the default not found page or the not-found.tsx file.
+
 ### Dynamic Route
 
 `app/path/[id]/page.tsx`  
 create a slug that serves as dynamic route.  
 `Page({ params: { id } })`  
 we can get the params as prop in page comp.
+
+### Static Params
+
+`app/user/[userId]/page.tsx`  
+generate the static params for this slug.
+
+```
+export async function generateStaticParams() {
+    const usersData: Promise<User[]> = getAllUsers()
+    const users = await usersData
+
+    return users.map(user => ({
+        userId: user.id.toString()
+    }))
+}
+```
+
+static params for a dynamic route that change the SSR to SSG.
+
+## Fetching Strategies
+
+- `fetch('', { cache: 'force-cache' })`  
+  always cache the data.
+- `fetch('', { cache: 'no-store' })`  
+  don't cache the data
+- `fetch('', { next: { revalidate: 60 } })`  
+  implements ISR approach that automatically get updated datas every 60secs.
 
 ## Special Files
 
@@ -31,6 +62,8 @@ we can get the params as prop in page comp.
   make a costume error boundary to catch the errors within each routes.
 - loading.tsx  
   make a costume suspense based loading for each page.
+- not-found.tsx  
+  make a costumed not-found page that renders on 404 errors.
 
 ## Metadata
 
