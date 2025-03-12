@@ -1,3 +1,5 @@
+# React Query
+
 `npm i react-query`
 
 ## Setup Provider

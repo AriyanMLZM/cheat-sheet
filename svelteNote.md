@@ -1,4 +1,6 @@
-# Components
+# Svelte / Sveltekit
+
+## Components
 
 single files with main three sections:
 
@@ -6,7 +8,7 @@ single files with main three sections:
 - html elements
 - css
 
-# Script js/ts
+## Script js/ts
 
 `<script lang="ts"> js/ts code </script>`  
 script tag for logic coding.
@@ -24,7 +26,7 @@ declare a derived state that is based on value of another state with Derived Run
 `$inspect(var)`  
 used to track a var and debugging and when changes this Rune will tell us.
 
-## Store
+### Store
 
 `/store/index.js`  
 we can make a store to have global states.
@@ -37,7 +39,7 @@ we can use Writable to make a global State.
 `$globalState`  
 we can use the globalState by importing it from store and use it reactively with $ sing.
 
-## Side Effects
+### Side Effects
 
 run function when value changes.
 
@@ -54,7 +56,7 @@ by default will run onMount.
 `})`  
 run return function on UnMount.
 
-# Html Elements
+## Html Elements
 
 `<Header prop1={prop1} {prop2} />`  
 passing props to comp.
@@ -68,7 +70,7 @@ use vars in elements content.
 `<button on:click={func} onclick={func} {onclick}> click </button>`  
 declare events handlers of elements.
 
-## Special Templates
+### Special Templates
 
 `<#if condition> elements </if>`  
 basic if statement.
@@ -89,7 +91,7 @@ we can also use render for children prop.
 `{#each items as item (loop key)} ... {/each}`
 basic loop over array.
 
-## Animations
+### Animations
 
 `<div transition:fly={{ x: 200, duration: 200, opacity: 0}}> ... </div>`  
 we can use simple built-in animations of svelte.
@@ -97,7 +99,7 @@ we can use simple built-in animations of svelte.
 `in:fly{{}} out:fly={{}}`  
 we can set the entrance and exit anim of an element.
 
-## Svelte Tag
+### Svelte Tag
 
 `<svelte:window bind:scrollY={y} />`  
 we can bind different attributes of window with our vars.
@@ -107,7 +109,7 @@ we can bind different attributes of window with our vars.
 `</svelte:head>`  
 we can set he meta tags of head.
 
-# Css
+## Css
 
 the css only targets the current comp elements.
 
@@ -117,7 +119,7 @@ we can write pure css.
 `:global(target) {...}`  
 used to target globally and effect all the comps.
 
-# Routing (SvelteKit)
+## Routing (SvelteKit)
 
 file based routing.
 
@@ -153,7 +155,7 @@ costume error page.
 `error.message`  
 we can use the error prop in our template.
 
-# Data fetching (SvelteKit)
+## Data fetching (SvelteKit)
 
 `<script context="module">`  
 `export async function load({ fetch }) {`  
@@ -168,7 +170,7 @@ load is special function.
 we can get the data as prop in normal script tag.
 
 `return { prop, status, redirect, error}`  
-the attributes that we can use in return of <strong>load function</strong>.
+the attributes that we can use in return of <b>load function</b>.
 
 - prop: for the data
 - status: the status code - 404, ...
@@ -178,7 +180,7 @@ the attributes that we can use in return of <strong>load function</strong>.
 `<a sveltekit:prefetch href="/path">`  
 prefetch the data of the link on hover load the path faster.
 
-# Api Endpoints (SvelteKit)
+## Api Endpoints (SvelteKit)
 
 `/about/index.json.js`  
 this is the basic endpoint in /about route.

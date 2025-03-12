@@ -1,3 +1,5 @@
+# Typescript
+
 `npm i typescript`  
 `tsc main.ts output.js`  
 compile the ts files to js.
@@ -8,7 +10,7 @@ watch all the files in rootDir.
 `tsc --noEmitOnError -w`  
 this will won't compile if there is ts error.
 
-# TS Config
+## TS Config
 
 `tsc --init`  
 make a ts config file.
@@ -27,7 +29,7 @@ this stops the compiling the js if there is ts error.
 `include: ["src"]`  
 only watch these files dirs.
 
-# Types
+## Types
 
 `let a: string = "ali"`  
 `let a: number = 12`  
@@ -73,7 +75,7 @@ exclude the null and undefined from the type.
 `let a: object`  
 `let a: RegExp = /\w+\g`
 
-## objects
+### objects
 
 `let a: {prop1: number; prop2: string}`  
 json object type.
@@ -113,7 +115,7 @@ pick the type from interface and use that.
 `let a: Omit<interfaceName, type>`  
 omit the type from interface that can not ber used.
 
-## functions
+### functions
 
 `const func = (a: number, b: string): number => {}`  
 func params types.
@@ -136,7 +138,7 @@ get the parameters type of func automatically.
 `type a = Awaited<ReturnType<typeof funcName>>`  
 Awaited used to get the return type of async func.
 
-## Type Assertion or Type Casting
+### Type Assertion or Type Casting
 
 `let a = b as string`  
 we make less or more specific type.
@@ -148,7 +150,7 @@ we determine the exact return type of func.
 not Null Assertion.  
 tell ts that we know that is not null.
 
-## Classes
+### Classes
 
 `constructor(public a: string, private a: number, protected c: boolean)`  
 we need to set the attributes' types and visibility modifiers in constructor of class.

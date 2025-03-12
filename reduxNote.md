@@ -262,7 +262,7 @@ we can also use useful props of get query hook.
 `addTodo(data)`  
 use of mutation queries hooks.
 
-### Setup Provider
+### Setup Api Provider
 
 `import { ApiProvider } from "@reduxjs/toolkit/query/react";`
 
