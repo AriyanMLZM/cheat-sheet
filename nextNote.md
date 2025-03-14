@@ -71,6 +71,8 @@ static params for a dynamic route that change the SSR to SSG.
   make a costume suspense based loading for each page.
 - not-found.tsx  
   make a costumed not-found page that renders on 404 errors.
+- route.ts  
+  make the api routes endpoints.
 
 ## Metadata
 
@@ -111,6 +113,49 @@ use a global css file for whole app and import it in root layout.tsx.
 make individual css files for components that will be only applied to that comp.  
 `import styles from './page.module.css`  
 `<div className={styles.className} />`
+
+## Api Routes
+
+`app/api/path/route.ts`  
+we create our endpoints in route.ts files.
+
+```js
+export const GET = async () => {
+	return new Response('hello!')
+}
+```
+
+simple get method in route.ts.
+
+```js
+import { NextResponse } from 'next/server'
+
+return NextResponse.json({ msg: 'hello!' })
+```
+
+we can use nextResponse to send back json objects.
+
+```js
+export const GET = (req: Request) => {
+	const { searchParams } = new URL(req.url)
+	const name = searchParams.get('name')
+
+	return NextResponse.json({ name })
+}
+```
+
+get the search params from the req.
+
+```js
+export const POST = async (req: Request) => {
+	const data = await req.json() // req.body
+	const { name, email } = data
+
+	return NextResponse.json({ name, email })
+}
+```
+
+read the body data of req in post method.
 
 ## Types
 
