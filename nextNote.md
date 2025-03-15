@@ -147,6 +147,14 @@ export const GET = (req: Request) => {
 get the search params from the req.
 
 ```js
+export const GET = (req, { params: { id } }) => {
+	...
+}
+```
+
+get the params of dynamic route.
+
+```js
 export const POST = async (req: Request) => {
 	const data = await req.json() // req.body
 	const { name, email } = data
@@ -156,6 +164,14 @@ export const POST = async (req: Request) => {
 ```
 
 read the body data of req in post method.
+
+## Env
+
+`.env.local`  
+store our env vars in this file in root dir.
+
+`process.env.API_KEY`  
+access the env var value.
 
 ## Types
 
