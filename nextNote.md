@@ -165,6 +165,30 @@ export const POST = async (req: Request) => {
 
 read the body data of req in post method.
 
+### Middleware
+
+`src/middleware.ts`  
+special file that should be the same level as app dir.
+
+```js
+export const middleware = (req) => {
+	...
+
+	return NextResponse.next()
+}
+```
+
+works as middleware for all the routes request.
+
+```js
+export const config = {
+	matcher: '/api/:path*', // can be regex
+}
+```
+
+narrow down the routes that that middleware apply to.  
+we can also write if statements in middleware to check the route if matches.
+
 ## Env
 
 `.env.local`  
